@@ -1,30 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
+	<title>Cantina</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="Cantina.css">
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <link rel="stylesheet" href="estils.css">
+	<script defer src="Cantina.js"></script>
 </head>
 <body>
-    <table>
-        <tr>
-            <th>Num.</th>
-            <th>Data</th>
-            <th>NIF</th>
-            <th>Client</th>
-            <th>Telefon</th>
-            <th>Email</th>
-            <th>Subtotal</th>
-            <th>Dte</th>
-            <th>Base I.</th>
-            <th>Iva</th>
-            <th>Total</th>
-            <th>Pagament</th>
-            <th>Accio</th>
-        </tr>
-        <tr id="taula">
-
-        </tr>
-    </table>
+	<div id="main" class="inline">
+		<div class="inline">
+			<h2>Cantina Sa Palomera</h2>
+			<button id='apuntar'>Apunta'm!</button>
+			<button id='pendents' style='margin-left:.5rem;'>Plats per avui</button>
+			<button id='eliminar' style='float:right;'>Esborrar reserves passades</button><br><br>
+			<table>
+				<thead>
+					<tr>
+						<th>Accions</th>
+						<th>Data</th>
+						<th>Hora</th>
+						<th>Profe</th>
+						<th>Primer</th>
+						<th>Segon</th>
+						<th>Preu</th>
+						<th>Observacions</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+	<div id="menu" class="dialeg">
+		<div class="centrat">
+			<form id="formulari">
+				<div id="tancar" class="tancar"><img src="close.svg"></div>
+				<h5>RESERVA</h5><br>
+				<select id="profe" name="profe"><option value="">--- Selecciona profe ---</option></select><br>
+				<input id="data" name="data" type="date"> <input id="hora" name="hora" type="time"><br><br>
+				Selecciona un primer i/o un segon (les postres estan incloses)<br>
+				<select id="primer" name="primer"><option value="">--- No vull primer ---</option></select>
+				<select id="segon" name="segon"><option value="">--- No vull segon ---</option></select><br><br>
+				Observacions:<br>
+				<textarea id="observacions" name="observacions"></textarea><br><br>
+				<strong>Total: <span id="total">0,00 €</span></strong><br><br>
+				<span id="error" class="error">Selecciona profe</span><br><br>
+				<button type="submit">Acceptar</button> <button type="reset">Cancel·lar</button>
+			</form>
+		</div>
+	</div>
+	<div id="resum" class="dialeg">
+		<div class="centrat">
+			<img id="tancar2" class="tancar" src="close.svg">
+			<h5>PLATS PER AVUI</h5>
+			<p id="textresum"></p>
+			<button id="tancar3">Tancar</button>
+		</div>
+	</div>
+	<div id="divPrint"></div>
 </body>
 </html>
