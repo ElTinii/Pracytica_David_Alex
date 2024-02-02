@@ -28,7 +28,7 @@ export class Factura{
         return facturesGuardades ? JSON.parse(facturesGuardades) : [];
     }
     static descarregarJson() {
-        const factures = Factura.obtenirFacturas(); 
+        const factures = Factura.obtenirFactures(); 
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(factures));
         const a = document.createElement('a');
         a.setAttribute("href", dataStr);

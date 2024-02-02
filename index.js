@@ -8,13 +8,18 @@ $(document).ready(init);
 
 
 $(document).ready(function() {
+
+    $('#guardar').click(function() {
+        Factura.descarregarJson();
+    });
+
     $('.dialeg').hide();
 
-    $('#apuntar').click(function() {
+    $('#facutra').click(function() {
         $('#novaFactura').show();
     });
 
-    $('#pendents').click(function() {
+    $('#recuperar').click(function() {
         $('#recuperarFactura').show();
     });
 
