@@ -57,7 +57,7 @@ function calcularTotal(baseI, iva) {
 function actualitzarTaula() {
     let factures = Factura.obtenirFactures();
     let factura = factures[factures.length - 1];
-    let tbody = $('table tbody').get(0); // Obtener el elemento del DOM directamente
+    let tbody = $('table tbody').get(0); 
 
     let tr = document.createElement('tr');
     tr.appendChild(crearElement('td', `${factures.length}`));
@@ -73,7 +73,6 @@ function actualitzarTaula() {
     tr.appendChild(crearElement('td', factura.total.toString()));
     tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
     
-    // Para los botones, necesitas manejar de forma diferente debido a los elementos internos
     let tdAccions = document.createElement('td');
     let btnDescarregar = crearElement('button', '', {class: 'descarregar'});
     let imgDescarregar = crearElement('img', '', {src: '/assets/descargar.png', alt: ''});
@@ -83,6 +82,11 @@ function actualitzarTaula() {
     let imgEliminar = crearElement('img', '', {src: '/assets/delete.svg', alt: ''});
     btnEliminar.appendChild(imgEliminar);
 
+
+    let btnEditar = crearElement('button', '', {class: 'editar'});
+    let imgEditar = crearElement('img', '', {src: '/assets/editar.png', alt: ''});
+    btnEditar.appendChild(imgEditar);
+    
     tdAccions.appendChild(btnDescarregar);
     tdAccions.appendChild(btnEliminar);
     tr.appendChild(tdAccions);
