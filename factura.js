@@ -38,3 +38,4 @@ export class Factura{
         a.remove();
     }   
 }
+export default Factura;
