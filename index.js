@@ -1,5 +1,5 @@
 import Factura from './factura.js';
-
+import Article from './article.js';
 function init() {
 }
 
