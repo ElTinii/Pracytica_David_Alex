@@ -59,22 +59,22 @@ function actualitzarTaula() {
     let factura = factures[factures.length - 1];
     let tbody = $('table tbody');
 
-    var tr = $('<tr></tr>');
+    var tr = $('<tr>');
     tr.append(`<td>${factures.length}</td>`);
     tr.append(`<td>${factura.data}</td>`);
     tr.append(`<td>${factura.nif}</td>`);
     tr.append(`<td>${factura.client}</td>`);
-    tr.append(`<td>${factura.telefon}</td>`);
+    tr.append(`<td>${factura.telefon}</td>`);   
     tr.append(`<td>${factura.email}</td>`);
     tr.append(`<td>${factura.subtotal}</td>`);
     tr.append(`<td>${factura.dte}</td>`);
     tr.append(`<td>${factura.baseI}</td>`);
     tr.append(`<td>${factura.iva}</td>`);
-    tr.append(`<td>${factura.total}</td>`);
+    tr.append(`<td>${factura.total}</td>`); 
     tr.append(`<td>${factura.pagament ? 'Sí' : 'No'}</td>`);
-    tr.append(`<td><button class="descarregar">Descarregar</button></td>`);
-    tr.append(`<td><button class="eliminar"><img src="/assets/delete.svg" alt=""></button></td>`);
+    tr.append(`<td><button class="descarregar"><img src="/assets/descargar.png" alt=""></button><button class="eliminar"><img src="/assets/delete.svg" alt=""></button></td>`);
+    tr.append('</tr>')
     tbody.append(tr);
-  
+  //Canviar a cretae element
 }
 }); 
