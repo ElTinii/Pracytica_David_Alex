@@ -23,7 +23,7 @@ td:nth-child(7) {text-align:right;}
 
 textarea {width:18rem;}
 input[type="date"] {width:12rem;}
-input[type="text"] {width:26rem;}
+input[type="text"] {width:16rem;}
 img {width:16px;padding: 0 .2rem;}
 
 .error{color:#C00000; font-weight:bold;}
