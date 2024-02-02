@@ -150,3 +150,20 @@ function actualitzarFila(facturaId) {
     // No olvides limpiar el atributo 'data-editing-id' del formulario una vez completada la edición
     $('#formulari').removeAttr('data-editing-id');
 }
+document.getElementById("files").addEventListener("change", handleFileSelect);
+
+function handleFileSelect(evt) {
+    let files = evt.target.files;
+    let f = files[0];
+    let reader = new FileReader();
+    reader.onload = (function(theFile) {
+        return function(e) {
+            let factures = JSON.parse(e.target.result);
+            factures.forEach(factura => {
+                Factura.guardarFactura(factura);
+                actualitzarTaula();
+            });
+        };
+    })(f);
+    reader.readAsText(f);
+}
