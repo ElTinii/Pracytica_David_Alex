@@ -13,8 +13,6 @@ $(document).ready(function() {
         Factura.descarregarJson();
     });
 
-    $('.dialeg').hide();
-
     $('#facutra').click(function() {
         $('#novaFactura').show();
     });
@@ -81,7 +79,7 @@ function actualitzarTaula() {
     let btnEliminar = crearElement('button', '', {class: 'eliminar'});
     let imgEliminar = crearElement('img', '', {src: '/assets/delete.svg', alt: ''});
     btnEliminar.appendChild(imgEliminar);
-
+    btnEliminar.addEventListener('click', eliminarFila);
 
     let btnEditar = crearElement('button', '', {class: 'editar'});
     let imgEditar = crearElement('img', '', {src: '/assets/editar.png', alt: ''});
@@ -102,4 +100,11 @@ function crearElement(element, text, attributes) {
         Object.keys(attributes).forEach(key => e.setAttribute(key, attributes[key]));
     }
     return e;
+}
+function eliminarFila() {
+    let fila = this.closest('tr');
+    fila.remove();
+    let factures = Factura.obtenirFactures();
+    factures.splice(fila.rowIndex - 1, 1);
+    localStorage.setItem('factures', JSON.stringify(factures));
 }
