@@ -140,30 +140,4 @@ function editarfactura() {
     $('#formulari').attr('data-editing-id', facturaId);
 
     $('#novaFactura').show();
-
-    if (editingId !== undefined) {
-        // Actualizar factura existente...
-        let factura = factures[editingId];
-        // Código para actualizar la factura...
-    
-        // Encuentra la fila correspondiente en la tabla y actualiza sus celdas
-        let tr = $('tr[data-factura-id="' + editingId + '"]');
-        tr.find('td').eq(1).text(factura.data);
-        tr.find('td').eq(2).text(factura.nif);
-        tr.find('td').eq(3).text(factura.client);
-        tr.find('td').eq(4).text(factura.telefon);
-        tr.find('td').eq(5).text(factura.email);
-        tr.find('td').eq(6).text(factura.subtotal.toString());
-        tr.find('td').eq(7).text(factura.dte.toString());
-        tr.find('td').eq(8).text(factura.baseI.toString());
-        tr.find('td').eq(9).text(factura.iva.toString());
-        tr.find('td').eq(10).text(factura.total.toString());
-        tr.find('td').eq(11).text(factura.pagament ? 'Sí' : 'No');
-    } else {
-        return
-    }
-
-    $('#formulari').removeAttr('data-editing-id');
-
-    
 }
