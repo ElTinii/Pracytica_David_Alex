@@ -32,9 +32,9 @@ $(document).ready(function() {
         let client = $('#nom').val(); 
         let telefon = $('#telefon').val();
         let email = $('#email').val();
-        let subtotal = $('#subtotal').val();
         let dte = $('#dte').val();
-        let baseI = calcularBaseImponible(subtotal, dte);
+        let subtotal = 0;
+        let baseI = 0;
         let iva = $('#iva').val();
         let total = calcularTotal(baseI, iva); 
         let pagament = $('#pagat').is(':checked');
@@ -87,6 +87,7 @@ function actualitzarTaula() {
     
     tdAccions.appendChild(btnDescarregar);
     tdAccions.appendChild(btnEliminar);
+    tdAccions.appendChild(btnEditar);
     tr.appendChild(tdAccions);
 
     tbody.appendChild(tr);
