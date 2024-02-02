@@ -18,7 +18,7 @@ export class Factura{
     }
 
     static guardarFactura(factura) {
-        const factures = Factura.obtenerFacturas();
+        const factures = Factura.obtenirFacturas();
         factures.push(factura);
         localStorage.setItem('factures', JSON.stringify(factures));
     }
@@ -32,7 +32,7 @@ export class Factura{
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(factures));
         const a = document.createElement('a');
         a.setAttribute("href", dataStr);
-        a.setAttribute("download", "facturas.json");
+        a.setAttribute("download", "factures.json");
         document.body.appendChild(a); 
         a.click();
         a.remove();
