@@ -105,7 +105,7 @@ tr.appendChild(crearCeldaSubtotal()); // Subtotal, inicialmente en 0
 tr.appendChild(crearCeldaAcciones()); // Acciones (botones)
 
 // Añadir la nueva fila a la tabla
-tbody.appendChild(tr);
+$('#taulaArticles tbody').append(tr);
 });
 
 // Función para crear una celda con un input editable
