@@ -101,11 +101,11 @@ function actualitzarTaula() {
     tr.setAttribute('data-factura-id', `${factures.length - 1}`);
 }
 document.getElementById("files").addEventListener("change", handleFileSelect);
-function handleFileSelect(evt) {
-    let files = evt.target.files;
+function handleFileSelect(event) {
+    let files = event.target.files;
     let f = files[0];
     let reader = new FileReader();
-    reader.onload = (function(theFile) {
+    reader.onload = (function(arxiu) {
         return function(e) {
             let factures = JSON.parse(e.target.result);
             factures.forEach(factura => {
@@ -115,7 +115,7 @@ function handleFileSelect(evt) {
         };
     })(f);
     reader.readAsText(f);
-} //In this function when it calls the function actualitzarTaula inside this 
+}
 }); 
 
 function crearElement(element, text, attributes) {
