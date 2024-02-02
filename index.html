@@ -7,12 +7,13 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script type="module" src="/index.js"></script>
 </head>
-<body>
+<body id="arrastrar">
 	<div id="main" class="inline">
 		<div class="inline">
 			<h2>Factures SaPa</h2>
 			<button id='facutra'>Nova factura</button>
-			<button>Recuperar fauctura</button>
+			<input type="file" id="files" hidden />
+			<button><label for="files" id="rFactura">Recuperar Factura</label></button>
 			<button id='guardar'>Guardar</button><br><br>
 			<table>
 				<thead>
