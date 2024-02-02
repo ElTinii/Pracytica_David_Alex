@@ -161,7 +161,7 @@ function handleFileSelect(evt) {
             let factures = JSON.parse(e.target.result);
             factures.forEach(factura => {
                 Factura.guardarFactura(factura);
-                actualitzarTaula();
+                actualitzarFila();
             });
         };
     })(f);
