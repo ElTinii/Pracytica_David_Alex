@@ -18,7 +18,7 @@ export class Factura{
     }
 
     static guardarFactura(factura) {
-        const factures = Factura.obtenirFacturas();
+        const factures = Factura.obtenirFactures();
         factures.push(factura);
         localStorage.setItem('factures', JSON.stringify(factures));
     }
