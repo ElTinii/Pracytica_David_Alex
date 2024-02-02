@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="styles.css">
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script type="module" src="/index.js"></script>
-	<script type= = "module" src="/factura.js"></script>
 </head>
 <body>
 	<div id="main" class="inline">
@@ -37,7 +36,7 @@
 			</table>
 		</div>
 	</div>
-	<dialog id="novaFactura" class="dialeg">
+	<div id="novaFactura" class="dialeg">
 		<div class="centrat">
 			<form id="formulari">
 				<div id="tancar" class="tancar"><img src="./assets/close.svg"></div>
@@ -46,34 +45,34 @@
 				<input id="data" name="data" type="date"><br><br>
 				<label for="nif">NIF:</label>
 				<input id="nif" name="nif" type="text"><br><br>
-				<label for="nom">Nom:</label>
-				<input id="nom" name="nombre" type="text"><br><br>
-				<label for="telefon">Telèfon:</label>
-				<input id="telefon" name="telefono" type="tel"><br><br>
+				<label for="nombre">Nom:</label>
+				<input id="nombre" name="nombre" type="text"><br><br>
+				<label for="telefono">Telèfon:</label>
+				<input id="telefono" name="telefono" type="tel"><br><br>
 				<label for="email">Email:</label>
 				<input id="email" name="email" type="email"><br><br>
 				<label for="subtotal">Subtotal:</label>
 				<input id="subtotal" name="subtotal" type="text" placeholder="€"><br><br>	
-				<label for="dte">Dte:</label>
-				<input id="dte" name="descuento" type="text" placeholder="%"><br><br>
+				<label for="descuento">Dte:</label>
+				<input id="descuento" name="descuento" type="text" placeholder="%"><br><br>
 				<label for="iva">IVA:</label>
 				<input id="iva" name="iva" type="text" placeholder="%"><br><br>
-				<label for="pagat">Pagado:</label>
-				<input id="pagat" name="pagado" type="checkbox"><br><br>
+				<label for="pagado">Pagado:</label>
+				<input id="pagado" name="pagado" type="checkbox"><br><br>
 				<strong>Total: <span id="total">0,00 €</span></strong><br>
 				<span id="error" class="error"></span><br><br> 
 				<button type="submit">Acceptar</button> <button type="reset">Cancel·lar</button>
 			</form>
 		</div>
-	</dialog>
-	<dialog id="recuperarFactura" class="dialeg">
+	</div>
+	<div id="recuperarFactura" class="dialeg">
 		<div class="centrat">
 			<img id="tancar2" class="tancar" src="./assets/close.svg">
 			<h5>PLATS PER AVUI</h5>
 			<p id="textresum"></p>
 			<button id="tancar3">Tancar</button>
-        </div>
-	</dialog>
+		</div>
+	</div>
 	<div id="divPrint"></div>
 </body>
 </html>

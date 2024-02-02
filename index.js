@@ -1,43 +1,74 @@
-import ("https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js");
+import Factura from './factura.js';
 
-
-document.getElementById("recuperar").addEventListener("click", function () {
-    
-});
-
-document.getElementById("guardar").addEventListener("click", function () {
-    
-});
-
-
-
-
-// filename: nom de l'arxiu que es descarregarà
-// text: text que es guardarà en l'arxiu
-function download(filename, json) {
-    // Convert the JSON object to a string
-    const jsonString = JSON.stringify(json, null, 2);
-
-    // Create a Blob object representing the file
-    const file = new Blob([jsonString], { type: 'application/json' });
-
-    // Create a "phantom" link (not actually added to the document)
-    const a = document.createElement('a');
-
-    // Create a URL representing the file to be downloaded
-    a.href = URL.createObjectURL(file);
-    // Specify the filename to be downloaded
-    a.download = filename;
-    // Simulate a click on the link
-    a.click();
-    // Revoke the URL object
-    URL.revokeObjectURL(a.href);
+function init() {
 }
 
-document.getElementById("descarregar").addEventListener("click", function(){
-    download("facturesSaPa.json", factures);
-});
 
-document.getElementById("tancar").addEventListener("click", function(){
-    close();
-});
+$(document).ready(init);
+
+
+$(document).ready(function() {
+    $('.dialeg').hide();
+
+    $('#apuntar').click(function() {
+        $('#novaFactura').show();
+    });
+
+    $('#pendents').click(function() {
+        $('#recuperarFactura').show();
+    });
+
+    $('#tancar, #tancar2, #tancar3').click(function() {
+        $('.dialeg').hide(); 
+    });
+    $('#formulari').submit(function(e) {
+        e.preventDefault(); 
+    
+        let data = $('#data').val();
+        let nif = $('#nif').val();
+        let client = $('#nom').val(); 
+        let telefon = $('#telefon').val();
+        let email = $('#email').val();
+        let subtotal = $('#subtotal').val();
+        let dte = $('#dte').val();
+        let baseI = calcularBaseImponible(subtotal, dte);
+        let iva = $('#iva').val();
+        let total = calcularTotal(baseI, iva); 
+        let pagament = $('#pagat').is(':checked');
+    
+        let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
+        Factura.guardarFactura(factura);
+        actualitzarTaula();
+        this.reset();
+})
+
+function calcularBaseImponible(subtotal, dte) {
+    return subtotal - (subtotal * dte / 100);
+}
+
+function calcularTotal(baseI, iva) {
+    return baseI + (baseI * iva / 100);
+}
+function actualitzarTaula() {
+    let factures = Factura.obtenirFactures();
+    let factura = factures[factures.length - 1];
+    let tbody = $('table tbody');
+
+    var tr = $('<tr></tr>');
+    tr.append(`<td>${factures.length}</td>`);
+    tr.append(`<td>${factura.data}</td>`);
+    tr.append(`<td>${factura.nif}</td>`);
+    tr.append(`<td>${factura.client}</td>`);
+    tr.append(`<td>${factura.telefon}</td>`);
+    tr.append(`<td>${factura.email}</td>`);
+    tr.append(`<td>${factura.subtotal}</td>`);
+    tr.append(`<td>${factura.dte}</td>`);
+    tr.append(`<td>${factura.baseI}</td>`);
+    tr.append(`<td>${factura.iva}</td>`);
+    tr.append(`<td>${factura.total}</td>`);
+    tr.append(`<td>${factura.pagament ? 'Sí' : 'No'}</td>`);
+    tr.append(`<td><button class="descarregar">Descarregar</button></td>`);
+    tbody.append(tr);
+  
+}
+}); 
