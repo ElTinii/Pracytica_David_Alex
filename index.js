@@ -73,6 +73,7 @@ function actualitzarTaula() {
     tr.append(`<td>${factura.total}</td>`);
     tr.append(`<td>${factura.pagament ? 'Sí' : 'No'}</td>`);
     tr.append(`<td><button class="descarregar">Descarregar</button></td>`);
+    tr.append(`<td><button class="eliminar"><img src="/assets/delete.svg" alt=""></button></td>`);
     tbody.append(tr);
   
 }
