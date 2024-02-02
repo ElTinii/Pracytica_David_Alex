@@ -72,8 +72,8 @@ function actualitzarTaula() {
     tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
     
     let tdAccions = document.createElement('td');
-    let btnDescarregar = crearElement('button', '', {class: 'descarregar'});
-    let imgDescarregar = crearElement('img', '', {src: '/assets/descargar.png', alt: ''});
+    let btnDescarregar = crearElement('button', '', {class: 'impresora'});
+    let imgDescarregar = crearElement('img', '', {src: '/assets/impresora.png', alt: ''});
     btnDescarregar.appendChild(imgDescarregar);
     
     let btnEliminar = crearElement('button', '', {class: 'eliminar'});
@@ -84,11 +84,17 @@ function actualitzarTaula() {
     let btnEditar = crearElement('button', '', {class: 'editar'});
     let imgEditar = crearElement('img', '', {src: '/assets/editar.png', alt: ''});
     btnEditar.appendChild(imgEditar);
-    btnEditar.addEventListener('click', mostrarArticles);
+    btnEditar.addEventListener('click', editarfactura);
+
+    let btnCesta = crearElement('button', '', {class: 'cesta'});
+    let imgCesta = crearElement('img', '', {src: '/assets/cesta.png', alt: ''});
+    btnCesta.appendChild(imgCesta);
+    btnCesta.addEventListener('click', mostrarArticles);
     
     tdAccions.appendChild(btnDescarregar);
     tdAccions.appendChild(btnEliminar);
     tdAccions.appendChild(btnEditar);
+    tdAccions.appendChild(btnCesta);
     tr.appendChild(tdAccions);
 
     tbody.appendChild(tr);
@@ -115,4 +121,7 @@ function mostrarArticles(){
     $('#editarArticles').show();
 
 
+}
+function editarfactura(){
+    $('#editarFactura').show();
 }
