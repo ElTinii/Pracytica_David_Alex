@@ -63,27 +63,27 @@
 			</form>
 		</div>
 	</dialog>
-	<dialog id="articles" class="dialeg">
-		<table>
-			<thead>
-				<tr>
-					<th>Núm</th>
-					<th>Data</th>
-					<th>NIF</th>
-					<th>Client</th>
-					<th>Telèfon</th>
-					<th>Email</th>
-					<th>Subtotal</th>
-					<th>Dte</th>
-					<th>Base I.</th>
-					<th>IVA</th>
-					<th>Total</th>
-					<th>Pagat</th>
-					<th>Accions</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
+	<dialog id="editarArticles" class="dialeg">
+		<div class="centrat">
+			<div id="tancarEdicio" class="tancar"><img src="./assets/close.svg"></div>
+			<h5>Articles</h5>
+			<table id="taulaArticles">
+				<thead>
+					<tr>
+						<th>Codi</th>
+						<th>Article</th>
+						<th>Uni.</th>
+						<th>Preu</th>
+						<th>Subtotal</th>
+						<th>Acc</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<button id="afegirArticle">Afegir article</button>
+			<div id="totalArticulos">Total artícles: <span id="sumaTotal">0,00</span>€</div>
+			<button id="tancarEdicio">Guardar</button>
+		</div>
 	</dialog>
 	<dialog id="recuperarFactura" class="dialeg">
 		<div class="centrat">

@@ -112,7 +112,7 @@ function eliminarFila() {
 }
 
 function mostrarArticles(){
-    $('#articles').show();
-    
+    $('#editarArticles').show();
+
 
 }
