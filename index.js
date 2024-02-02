@@ -84,6 +84,7 @@ function actualitzarTaula() {
     let btnEditar = crearElement('button', '', {class: 'editar'});
     let imgEditar = crearElement('img', '', {src: '/assets/editar.png', alt: ''});
     btnEditar.appendChild(imgEditar);
+    btnEditar.addEventListener('click', mostrarArticles);
     
     tdAccions.appendChild(btnDescarregar);
     tdAccions.appendChild(btnEliminar);
@@ -108,4 +109,10 @@ function eliminarFila() {
     let factures = Factura.obtenirFactures();
     factures.splice(fila.rowIndex - 1, 1);
     localStorage.setItem('factures', JSON.stringify(factures));
+}
+
+function mostrarArticles(){
+    $('#articles').show();
+    
+
 }
