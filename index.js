@@ -34,25 +34,16 @@ $(document).ready(function() {
         let email = $('#email').val();
         let dte = $('#dte').val();
         let subtotal = 0;
-        let baseI = calcularBaseImponible(subtotal, dte);
+        let baseI = 0;
         let iva = $('#iva').val();
         let total = calcularTotal(baseI, iva); 
         let pagament = $('#pagat').is(':checked');
     
-        let editingId = $(this).attr('data-editing-id');
-    
-        if (editingId) {
-            Factura.actualizarFactura(editingId, {data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament});
-            actualitzarFila(editingId);
-        } else {
-            let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
-            Factura.guardarFactura(factura);
-            actualitzarTaula();
-        }
+        let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
+        Factura.guardarFactura(factura);
+        actualitzarTaula();
         this.reset();
-        $('#novaFactura').hide();
-    });
-    
+})
 
 function calcularBaseImponible(subtotal, dte) {
     return subtotal - (subtotal * dte / 100);
@@ -134,19 +125,19 @@ function mostrarArticles(){
 }
 function editarfactura() {
     let facturaId = this.closest('tr').getAttribute('data-factura-id');
-    let factura = Factura.obtenirFactures()[facturaId];
+    let factures = Factura.obtenirFactures();
+    let factura = factures[facturaId];
 
-    $('#formulari').attr('data-editing-id', facturaId); // Establece el modo de edición
+    $('#data').val(factura.data);
+    $('#nif').val(factura.nif);
+    $('#nom').val(factura.client);
+    $('#telefon').val(factura.telefon);
+    $('#email').val(factura.email);
+    $('#dte').val(factura.dte);
+    $('#iva').val(factura.iva);
+    $('#pagat').prop('checked', factura.pagament);
+
+    $('#formulari').attr('data-editing-id', facturaId);
+
     $('#novaFactura').show();
-}
-function actualitzarFila(facturaId) {
-    let factura = Factura.obtenirFactures()[facturaId];
-    let fila = $(`tr[data-factura-id="${facturaId}"]`);
-
-    fila.find('td').eq(1).text(factura.data);
-    fila.find('td').eq(2).text(factura.nif);
-    // Continúa actualizando el resto de las celdas de la misma manera
-
-    // No olvides limpiar el atributo 'data-editing-id' del formulario una vez completada la edición
-    $('#formulari').removeAttr('data-editing-id');
 }
