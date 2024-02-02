@@ -1,31 +1,35 @@
 <!doctype html>
 <html lang="ca">
 <head>
-	<title>Cantina</title>
+	<title>Factures SaPa</title>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="Cantina.css">
+	<link rel="stylesheet" href="styles.css">
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <link rel="stylesheet" href="estils.css">
 	<script defer src="index.js"></script>
 </head>
 <body>
 	<div id="main" class="inline">
 		<div class="inline">
-			<h2>Cantina Sa Palomera</h2>
-			<button id='apuntar'>Apunta'm!</button>
-			<button id='pendents' style='margin-left:.5rem;'>Plats per avui</button>
-			<button id='eliminar' style='float:right;'>Esborrar reserves passades</button><br><br>
+			<h2>Factures SaPa</h2>
+			<button id='apuntar'>Nova factura</button>
+			<button id='pendents' style='margin-left:.5rem;'>Recuperar factura</button>
+			<button id='eliminar'>Guardar</button><br><br>
 			<table>
 				<thead>
 					<tr>
-						<th>Accions</th>
+						<th>Núm</th>
 						<th>Data</th>
-						<th>Hora</th>
-						<th>Profe</th>
-						<th>Primer</th>
-						<th>Segon</th>
-						<th>Preu</th>
-						<th>Observacions</th>
+						<th>NIF</th>
+						<th>Client</th>
+						<th>Telèfon</th>
+						<th>Email</th>
+						<th>Subtotal</th>
+						<th>Dte</th>
+						<th>Base I.</th>
+						<th>IVA</th>
+						<th>Total</th>
+						<th>Pagat</th>
+						<th>Accions</th>
 					</tr>
 				</thead>
 				<tbody></tbody>
@@ -35,24 +39,35 @@
 	<div id="menu" class="dialeg">
 		<div class="centrat">
 			<form id="formulari">
-				<div id="tancar" class="tancar"><img src="close.svg"></div>
-				<h5>RESERVA</h5><br>
-				<select id="profe" name="profe"><option value="">--- Selecciona profe ---</option></select><br>
-				<input id="data" name="data" type="date"> <input id="hora" name="hora" type="time"><br><br>
-				Selecciona un primer i/o un segon (les postres estan incloses)<br>
-				<select id="primer" name="primer"><option value="">--- No vull primer ---</option></select>
-				<select id="segon" name="segon"><option value="">--- No vull segon ---</option></select><br><br>
-				Observacions:<br>
-				<textarea id="observacions" name="observacions"></textarea><br><br>
-				<strong>Total: <span id="total">0,00 €</span></strong><br><br>
-				<span id="error" class="error">Selecciona profe</span><br><br>
+				<div id="tancar" class="tancar"><img src="./assets/close.svg"></div>
+				<h5>Factura</h5><br>
+				<label for="data">Data:</label>
+				<input id="data" name="data" type="date"><br><br>
+				<label for="nif">NIF:</label>
+				<input id="nif" name="nif" type="text"><br><br>
+				<label for="nombre">Nom:</label>
+				<input id="nombre" name="nombre" type="text"><br><br>
+				<label for="telefono">Telèfon:</label>
+				<input id="telefono" name="telefono" type="tel"><br><br>
+				<label for="email">Email:</label>
+				<input id="email" name="email" type="email"><br><br>
+				<label for="subtotal">Subtotal:</label>
+				<input id="subtotal" name="subtotal" type="text" placeholder="€"><br><br>	
+				<label for="descuento">Dte:</label>
+				<input id="descuento" name="descuento" type="text" placeholder="%"><br><br>
+				<label for="iva">IVA:</label>
+				<input id="iva" name="iva" type="text" placeholder="%"><br><br>
+				<label for="pagado">Pagado:</label>
+				<input id="pagado" name="pagado" type="checkbox"><br><br>
+				<strong>Total: <span id="total">0,00 €</span></strong><br>
+				<span id="error" class="error"></span><br><br> 
 				<button type="submit">Acceptar</button> <button type="reset">Cancel·lar</button>
 			</form>
 		</div>
 	</div>
 	<div id="resum" class="dialeg">
 		<div class="centrat">
-			<img id="tancar2" class="tancar" src="close.svg" >
+			<img id="tancar2" class="tancar" src="./assets/close.svg">
 			<h5>PLATS PER AVUI</h5>
 			<p id="textresum"></p>
 			<button id="tancar3">Tancar</button>
