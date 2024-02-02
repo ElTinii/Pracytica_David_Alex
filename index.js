@@ -98,6 +98,7 @@ function actualitzarTaula() {
     tr.appendChild(tdAccions);
 
     tbody.appendChild(tr);
+    tr.setAttribute('data-factura-id', `${factures.length - 1}`);
 }
 }); 
 
@@ -122,6 +123,21 @@ function mostrarArticles(){
 
 
 }
-function editarfactura(){
-    $('#editarFactura').show();
+function editarfactura() {
+    let facturaId = this.closest('tr').getAttribute('data-factura-id');
+    let factures = Factura.obtenirFactures();
+    let factura = factures[facturaId];
+
+    $('#data').val(factura.data);
+    $('#nif').val(factura.nif);
+    $('#nom').val(factura.client);
+    $('#telefon').val(factura.telefon);
+    $('#email').val(factura.email);
+    $('#dte').val(factura.dte);
+    $('#iva').val(factura.iva);
+    $('#pagat').prop('checked', factura.pagament);
+
+    $('#formulari').attr('data-editing-id', facturaId);
+
+    $('#novaFactura').show();
 }
