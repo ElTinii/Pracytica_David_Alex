@@ -1,5 +1,5 @@
 import Factura from './factura.js';
-
+import Article from './article.js';
 function init() {
 }
 
@@ -93,56 +93,7 @@ function actualitzarTaula() {
 
     tbody.appendChild(tr);
 }
-let tbody = $('#tablaArticulos tbody').get(0)
-    
-// Crear una nueva fila
-let tr = document.createElement('tr');
-tr.appendChild(crearCeldaEditable('')); // Codi
-tr.appendChild(crearCeldaEditable('')); // Article
-tr.appendChild(crearCeldaEditable('1')); // Uni. con valor predeterminado
-tr.appendChild(crearCeldaEditable('0')); // Preu con valor predeterminado
-tr.appendChild(crearCeldaSubtotal()); // Subtotal, inicialmente en 0
-tr.appendChild(crearCeldaAcciones()); // Acciones (botones)
-
-// Añadir la nueva fila a la tabla
-$('#taulaArticles tbody').append(tr);
-});
-
-// Función para crear una celda con un input editable
-function crearCeldaEditable(valorPredeterminado) {
-let td = document.createElement('td');
-let input = document.createElement('input');
-input.type = 'text';
-input.value = valorPredeterminado;
-input.className = 'input-editable'; // Asegúrate de definir este estilo en tu CSS
-input.oninput = calcularSubtotalFila; // Función para recalcular el subtotal cuando cambie el input
-td.appendChild(input);
-return td;
-}
-
-// Función para crear la celda de subtotal
-function crearCeldaSubtotal() {
-let td = document.createElement('td');
-td.className = 'subtotal';
-td.textContent = '0'; // Subtotal inicial
-return td;
-}
-
-// Función para recalcular el subtotal de una fila
-function calcularSubtotalFila() {
-let tr = this.parentNode.parentNode; // Referencia a la fila (tr)
-let cantidad = tr.querySelector('input')[2].value; // Obtener la cantidad (Uni.)
-let precio = tr.querySelector('input')[3].value; // Obtener el precio (Preu)
-let subtotal = cantidad * precio; // Calcular subtotal
-tr.querySelector('.subtotal').textContent = subtotal.toFixed(2); // Actualizar el texto de la celda de subtotal
-}
-
-// Función para crear celda de acciones, como eliminar fila
-function crearCeldaAcciones() {
-let td = document.createElement('td');
-// Aquí puedes agregar botones o íconos para acciones como eliminar fila
-return td;
-}
+}); 
 
 function crearElement(element, text, attributes) {
     let e = document.createElement(element);
