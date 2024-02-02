@@ -57,24 +57,45 @@ function calcularTotal(baseI, iva) {
 function actualitzarTaula() {
     let factures = Factura.obtenirFactures();
     let factura = factures[factures.length - 1];
-    let tbody = $('table tbody');
+    let tbody = $('table tbody').get(0); // Obtener el elemento del DOM directamente
 
-    var tr = $('<tr>');
-    tr.append(`<td>${factures.length}</td>`);
-    tr.append(`<td>${factura.data}</td>`);
-    tr.append(`<td>${factura.nif}</td>`);
-    tr.append(`<td>${factura.client}</td>`);
-    tr.append(`<td>${factura.telefon}</td>`);   
-    tr.append(`<td>${factura.email}</td>`);
-    tr.append(`<td>${factura.subtotal}</td>`);
-    tr.append(`<td>${factura.dte}</td>`);
-    tr.append(`<td>${factura.baseI}</td>`);
-    tr.append(`<td>${factura.iva}</td>`);
-    tr.append(`<td>${factura.total}</td>`); 
-    tr.append(`<td>${factura.pagament ? 'Sí' : 'No'}</td>`);
-    tr.append(`<td><button class="descarregar"><img src="/assets/descargar.png" alt=""></button><button class="eliminar"><img src="/assets/delete.svg" alt=""></button></td>`);
-    tr.append('</tr>')
-    tbody.append(tr);
-  //Canviar a cretae element
+    let tr = document.createElement('tr');
+    tr.appendChild(crearElement('td', `${factures.length}`));
+    tr.appendChild(crearElement('td', factura.data));
+    tr.appendChild(crearElement('td', factura.nif));
+    tr.appendChild(crearElement('td', factura.client));
+    tr.appendChild(crearElement('td', factura.telefon));
+    tr.appendChild(crearElement('td', factura.email));
+    tr.appendChild(crearElement('td', factura.subtotal.toString()));
+    tr.appendChild(crearElement('td', factura.dte.toString()));
+    tr.appendChild(crearElement('td', factura.baseI.toString()));
+    tr.appendChild(crearElement('td', factura.iva.toString()));
+    tr.appendChild(crearElement('td', factura.total.toString()));
+    tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
+    
+    // Para los botones, necesitas manejar de forma diferente debido a los elementos internos
+    let tdAccions = document.createElement('td');
+    let btnDescarregar = crearElement('button', '', {class: 'descarregar'});
+    let imgDescarregar = crearElement('img', '', {src: '/assets/descargar.png', alt: ''});
+    btnDescarregar.appendChild(imgDescarregar);
+    
+    let btnEliminar = crearElement('button', '', {class: 'eliminar'});
+    let imgEliminar = crearElement('img', '', {src: '/assets/delete.svg', alt: ''});
+    btnEliminar.appendChild(imgEliminar);
+
+    tdAccions.appendChild(btnDescarregar);
+    tdAccions.appendChild(btnEliminar);
+    tr.appendChild(tdAccions);
+
+    tbody.appendChild(tr);
 }
 }); 
+
+function crearElement(element, text, attributes) {
+    let e = document.createElement(element);
+    if (text) e.textContent = text;
+    if (attributes) {
+        Object.keys(attributes).forEach(key => e.setAttribute(key, attributes[key]));
+    }
+    return e;
+}
