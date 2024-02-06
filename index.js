@@ -207,15 +207,55 @@ function editarfactura() {
     $('#novaFactura').show();
     eliminarFila();
 }
-let afg = document.getElementById('afegirArticle');
-    let tbody = document.getElementById('taulaArticles'); 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    let afg = document.getElementById('afegirArticle');
+    let tbody = document.getElementById('taulaArticles').querySelector('tbody');
+
     afg.addEventListener('click', function() {
+       
+        let id = tbody.children.length + 1;
         let tr = document.createElement('tr');
-        tr.appendChild(crearElement('td', `${tbody.children.length}`));
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td', id.toString())); // Codi
+        tr.appendChild(crearElement('td', '', {'contenteditable': 'true'})); 
+        tr.appendChild(crearElement('td', '', {'contenteditable': 'true'})); 
+        tr.appendChild(crearElement('td', '', {'contenteditable': 'true', 'class': 'preu'})); 
+        tr.appendChild(crearElement('td', '', {'class': 'subtotal'})); 
+        let tdAcc = document.createElement('td'); 
+        let eliminarBtn = document.createElement('button');
+        eliminarBtn.textContent = 'Eliminar';
+        eliminarBtn.onclick = function() { tr.remove(); calcularTotal(); };
+        tdAcc.appendChild(eliminarBtn);
+        tr.appendChild(tdAcc);
+
         tbody.appendChild(tr);
     });
+
+    function crearElement(element, text, attributes = {}) {
+        let e = document.createElement(element);
+        if (text) e.textContent = text;
+        Object.keys(attributes).forEach(key => e.setAttribute(key, attributes[key]));
+        return e;
+    }
+
+    function calcularTotal() {
+        let total = 0;
+        document.querySelectorAll('#taulaArticles tbody tr').forEach(tr => {
+            let cantidad = tr.children[2].textContent || 0; 
+            let precio = tr.children[3].textContent || 0;
+            let subtotal = cantidad * precio;
+            tr.children[4].textContent = subtotal.toFixed(2);
+            total += subtotal;
+        });
+        document.getElementById('sumaTotal').textContent = total.toFixed(2);
+    }
+    document.getElementById('taulaArticles').addEventListener('input', function(e) {
+        if (e.target.classList.contains('preu')) {
+            calcularTotal();
+        }
+    });
+    document.getElementById('tancarEdicio').addEventListener('click', function() {
+        calcularTotal();
+    });
+});
