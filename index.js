@@ -187,14 +187,14 @@ function eliminarFila() {
 }
 
 function mostrarArticles() {
-    let facturaId = $(this).closest('tr').data('factura-id'); 
+    let facturaId = $(this).closest('tr').attr('data-factura-id'); 
     let factures = Factura.obtenirFactures();
-    let factura = factures.find(f => f.id === facturaId);
-
+    let factura = factures.find(f => f.id == facturaId);
     if (factura && factura.articles) {
         $('#taulaArticles tbody').empty();
-        factura.articles.forEach(article => {
+        factura.articles.forEach((article, index) => {
             let tr = $('<tr></tr>');
+            tr.append($('<td></td>').text(index + 1)); 
             tr.append($('<td></td>').text(article.codi));
             tr.append($('<td></td>').text(article.article));
             tr.append($('<td></td>').text(article.uni));
@@ -202,8 +202,9 @@ function mostrarArticles() {
             tr.append($('<td></td>').text(article.subtotal));
             $('#taulaArticles tbody').append(tr);
         });
-    }
+
     $('#editarArticles').show();
+}
 }
 function editarfactura() {
     let facturaId = this.closest('tr').getAttribute('data-factura-id');
