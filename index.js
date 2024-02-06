@@ -316,7 +316,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
 function printDocument(){
-    let fila = this.closest('tr').getAttribute('data-factura-id');
+    
+    let facturaId = this.closest('tr').getAttribute('data-factura-id');
+    let factures = Factura.obtenirFactures();
+    let factura = factures[facturaId];
+
+    let div = document.getElementById('print');
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+
+    div.appendChild(crearElement('h1', 'Factura'));
+    div.appendChild(crearElement('label','Data Factura: '));
+    div.appendChild(crearElement('label', $('#data').val(factura.data)));
+    div.appendChild(crearElement('label','Núm. Factura: '));
+    div.appendChild(crearElement('label', facturaId));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('label','NIF: '));
+    div.appendChild(crearElement('label', $('#nif').val(factura.nif)));
+    div.appendChild(crearElement('label','Nom: '));
+    div.appendChild(crearElement('label', $('#nom').val(factura.client)));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('tabel'))
+    div.appendChild(crearElement('tr'));
+    div.appendChild(crearElement('th', 'Codi'));
+    div.appendChild(crearElement('th', 'Article'));
+    div.appendChild(crearElement('th', 'Uni.'));
+    div.appendChild(crearElement('th', 'Preu'));
+    div.appendChild(crearElement('th', 'Subtotal'));
+    
     window.print();
 }
