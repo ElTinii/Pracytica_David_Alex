@@ -121,6 +121,7 @@ function agregarAccions(tr) {
     let btnDescarregar = crearElement('button', '', {class: 'impresora'});
     let imgDescarregar = crearElement('img', '', {src: '/assets/impresora.png', alt: ''});
     btnDescarregar.appendChild(imgDescarregar);
+    btnDescarregar.addEventListener('click', printDocument);
     
     let btnEliminar = crearElement('button', '', {class: 'eliminar'});
     let imgEliminar = crearElement('img', '', {src: '/assets/delete.svg', alt: ''});
@@ -259,3 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calcularTotal();
     });
 });
+function printDocument(){
+    let fila = this.closest('tr').getAttribute('data-factura-id');
+    window.print();
+}

@@ -64,25 +64,12 @@ img {width:16px;padding: 0 .2rem;}
 	box-shadow: 8px 8px 24px 0 rgba(0, 0, 0, 0.5);
 }
 
-.printable {visibility:hidden; display:none;}
-.nonprintable {visibility:visible; display:block;}
+.print {visibility:hidden; display:none;}
+.noprint {visibility:visible; display:block;}
 
 @media print{
-	@page { size:2.2in 3.1in; margin: 0.3cm; }
-	* { font-size:15px; }
-	.printable {visibility:visible; display:block;}
-	.nonprintable {visibility:hidden; display:none;}
-	.especial {
-		display: block;
-		position: fixed;
-		font-weight: bold;
-		border: .5rem solid black;
-		padding: 1rem;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%) rotate(-65deg) scale(1.6, 1.3);
-		opacity: .1;
-	}
+	.noprint{display:none;}
+	.print{display: block;}
 }
 td{
 	height: 20px;
