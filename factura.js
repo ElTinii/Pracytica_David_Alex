@@ -28,6 +28,10 @@ export class Factura{
         const facturesGuardades = localStorage.getItem('factures');
         return facturesGuardades ? JSON.parse(facturesGuardades) : [];
     }
+
+    getFacturaId() {
+        return this.num;
+    }
     static descarregarJson() {
         try{
         const factures = Factura.obtenirFactures(); 
