@@ -146,20 +146,25 @@ function agregarAccions(tr) {
 }
 
 document.getElementById("files").addEventListener("change", handleFileSelect);
-function handleFileSelect(event) {
-    let files = event.target.files;
-    let f = files[0];
-    let reader = new FileReader();
-    reader.onload = (function(arxiu) {
-        return function(e) {
-            let factures = JSON.parse(e.target.result);
-            factures.forEach(factura => {
-                Factura.guardarFactura(factura);
-                actualitzarTaula();
-            });
-        };
-    })(f);
-    reader.readAsText(f);
+function recuperarFitxer(event) {
+    try{
+        let files = event.target.files;
+        let f = files[0];
+        let reader = new FileReader();
+        reader.onload = (function(arxiu) {
+            return function(e) {
+                let factures = JSON.parse(e.target.result);
+                factures.forEach(factura => {
+                    Factura.guardarFactura(factura);
+                    actualitzarTaula();
+                });
+            };
+        })(f);
+        reader.readAsText(f);
+    }catch(e){
+        alert("Error al recuperar el fitxer")
+    }
+ 
 }
 }); 
 
