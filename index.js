@@ -187,13 +187,14 @@ function eliminarFila() {
 }
 
 function mostrarArticles() {
-    let facturaId = $(this).closest('tr').data('factura-id'); 
+    let facturaId = $(this).closest('tr').attr('data-factura-id'); 
     let factures = Factura.obtenirFactures();
     let factura = factures[facturaId];
     if (factura && factura.articles) {
         $('#taulaArticles tbody').empty();
-        factura.articles.forEach(article => {
+        factura.articles.forEach((article, index) => {
             let tr = $('<tr></tr>');
+            tr.append($('<td></td>').text(index + 1)); 
             tr.append($('<td></td>').text(article.codi));
             tr.append($('<td></td>').text(article.article));
             tr.append($('<td></td>').text(article.uni));
@@ -201,8 +202,9 @@ function mostrarArticles() {
             tr.append($('<td></td>').text(article.subtotal));
             $('#taulaArticles tbody').append(tr);
         });
-    }
+
     $('#editarArticles').show();
+}
 }
 function editarfactura() {
     let facturaId = this.closest('tr').getAttribute('data-factura-id');
@@ -340,6 +342,12 @@ function printDocument(){
     div.appendChild(crearElement('label', factura.client));
     div.appendChild(crearElement('br'));
     div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('label','Telefon: '));
+    div.appendChild(crearElement('label', factura.telefon));
+    div.appendChild(crearElement('label','Email: '));
+    div.appendChild(crearElement('label', factura.email));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('br'));
     div.appendChild(crearElement('tabel'))
     div.appendChild(crearElement('tr'));
     div.appendChild(crearElement('th', 'Codi'));
@@ -356,5 +364,33 @@ function printDocument(){
         div.appendChild(crearElement('td', article.preu));
         div.appendChild(crearElement('td', article.subtotal));
     }
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('label','Subtotal: '));
+    div.appendChild(crearElement('label', factura.subtotal));
+    div.appendChild(crearElement('label','Dte: '));
+    div.appendChild(crearElement('label', factura.dte));
+    div.appendChild(crearElement('label','Base Imponible: '));
+    div.appendChild(crearElement('label', factura.baseI));
+    div.appendChild(crearElement('label','IVA: '));
+    div.appendChild(crearElement('label', factura.iva));
+    div.appendChild(crearElement('label','Total: '));
+    div.appendChild(crearElement('label', factura.total));
+    div.appendChild(crearElement('br'));
+    div.appendChild(crearElement('br'));
+    if (factura.pagament) {
+        let imgPagado = document.createElement('img');
+        imgPagado.setAttribute('src', '../assets/pagado.png'); 
+        imgPagado.setAttribute('alt', 'Pagado');
+        imgPagado.style.width = '600px'; 
+        imgPagado.style.height = 'auto';
+        imgPagado.style.display = 'block';
+        imgPagado.style.margin = '0 auto'; 
+        div.appendChild(imgPagado);
+    } else {
+        div.appendChild(crearElement('label', 'Pagat: No'));
+    }
+
+    
     window.print();
 }
