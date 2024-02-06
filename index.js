@@ -1,5 +1,6 @@
 import Factura from './factura.js';
 import Article from './article.js';
+import "https://code.jquery.com/jquery-3.6.3.js";
 function init() {
 }
 
@@ -38,7 +39,6 @@ $(document).ready(function() {
         let iva = $('#iva').val();
         let total = calcularTotal(baseI, iva); 
         let pagament = $('#pagat').is(':checked');
-    
         let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
         Factura.guardarFactura(factura);
         actualitzarTaula();
@@ -136,7 +136,18 @@ function eliminarFila() {
 
 function mostrarArticles(){
     $('#editarArticles').show();
-
+    let afg = document.getElementById('afegirArticle');
+    let tbody = document.getElementById('taulaArticles'); 
+    afg.addEventListener('click', function() {
+        let tr = document.createElement('tr');
+        tr.appendChild(crearElement('td', `${tbody.children.length + 1}`));
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tbody.appendChild(tr);
+    });
 
 }
 function editarfactura() {
@@ -156,6 +167,5 @@ function editarfactura() {
     $('#formulari').attr('data-editing-id', facturaId);
 
     $('#novaFactura').show();
+    eliminarFila();
 }
-
-

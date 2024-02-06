@@ -84,4 +84,6 @@ img {width:16px;padding: 0 .2rem;}
 		opacity: .1;
 	}
 }
-
+td{
+	height: 20px;
+}
