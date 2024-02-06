@@ -1,5 +1,5 @@
 export class Factura{
-    static num = 0; 
+    static num = 1; 
     data; nif; client; telefon; email; subtotal; dte; baseI; iva; total; pagament; articles = [];
 
     constructor(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament) {
