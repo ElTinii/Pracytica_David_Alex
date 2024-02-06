@@ -26,24 +26,46 @@ $(document).ready(function() {
         $('.dialeg').hide(); 
     });
     $('#formulari').submit(function(e) {
-        e.preventDefault(); 
-    
+        e.preventDefault();
         let data = $('#data').val();
         let nif = $('#nif').val();
-        let client = $('#nom').val(); 
+        let client = $('#nom').val();
         let telefon = $('#telefon').val();
         let email = $('#email').val();
         let dte = $('#dte').val();
-        let subtotal = 0;
-        let baseI = 0;
+        let subtotal = 0; 
+        let baseI = 0; 
         let iva = $('#iva').val();
-        let total = calcularTotal(baseI, iva); 
+        let total = calcularTotal(baseI, iva);
         let pagament = $('#pagat').is(':checked');
-        let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
-        Factura.guardarFactura(factura);
+    
+        let facturaId = $('#formulari').attr('data-editing-id');
+        if (facturaId) {
+            let factures = Factura.obtenirFactures();
+            let factura = factures[facturaId];
+            factura.data = data;
+            factura.nif = nif;
+            factura.client = client;
+            factura.telefon = telefon;
+            factura.email = email;
+            factura.dte = dte;
+            factura.subtotal = subtotal;
+            factura.baseI = baseI;
+            factura.iva = iva;
+            factura.total = total;
+            factura.pagament = pagament;
+
+            localStorage.setItem('factures', JSON.stringify(factures));
+        } else {
+            let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
+            Factura.guardarFactura(factura);
+        }
+    
         actualitzarTaula();
         this.reset();
-})
+        $('#formulari').removeAttr('data-editing-id');
+    });
+    
 
 function calcularBaseImponible(subtotal, dte) {
     return subtotal - (subtotal * dte / 100);
@@ -53,24 +75,46 @@ function calcularTotal(baseI, iva) {
     return baseI + (baseI * iva / 100);
 }
 function actualitzarTaula() {
+    let facturaId = $('#formulari').attr('data-editing-id');
     let factures = Factura.obtenirFactures();
-    let factura = factures[factures.length - 1];
-    let tbody = $('table tbody').get(0); 
+    let factura = facturaId ? factures[facturaId] : factures[factures.length - 1];
+    let tbody = $('table tbody').get(0);
 
-    let tr = document.createElement('tr');
-    tr.appendChild(crearElement('td', `${factures.length}`));
-    tr.appendChild(crearElement('td', factura.data));
-    tr.appendChild(crearElement('td', factura.nif));
-    tr.appendChild(crearElement('td', factura.client));
-    tr.appendChild(crearElement('td', factura.telefon));
-    tr.appendChild(crearElement('td', factura.email));
-    tr.appendChild(crearElement('td', factura.subtotal.toString()));
-    tr.appendChild(crearElement('td', factura.dte.toString()));
-    tr.appendChild(crearElement('td', factura.baseI.toString()));
-    tr.appendChild(crearElement('td', factura.iva.toString()));
-    tr.appendChild(crearElement('td', factura.total.toString()));
-    tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
-    
+    if (facturaId && factura) {
+        let fila = $(`tr[data-factura-id='${facturaId}']`);
+        fila.children('td').get(1).textContent = factura.data;
+        fila.children('td').get(2).textContent = factura.nif;
+        fila.children('td').get(3).textContent = factura.client;
+        fila.children('td').get(4).textContent = factura.telefon;
+        fila.children('td').get(5).textContent = factura.email;
+        fila.children('td').get(6).textContent = factura.subtotal.toString();
+        fila.children('td').get(7).textContent = factura.dte.toString();
+        fila.children('td').get(8).textContent = factura.baseI.toString();
+        fila.children('td').get(9).textContent = factura.iva.toString();
+        fila.children('td').get(10).textContent = factura.total.toString();
+        fila.children('td').get(11).textContent = factura.pagament ? 'Sí' : 'No';
+    } else {
+        let tbody = $('table tbody').get(0);
+        let tr = document.createElement('tr');
+        tr.appendChild(crearElement('td', `${factures.length}`));
+        tr.appendChild(crearElement('td', factura.data));
+        tr.appendChild(crearElement('td', factura.nif));
+        tr.appendChild(crearElement('td', factura.client));
+        tr.appendChild(crearElement('td', factura.telefon));
+        tr.appendChild(crearElement('td', factura.email));
+        tr.appendChild(crearElement('td', factura.subtotal.toString()));
+        tr.appendChild(crearElement('td', factura.dte.toString()));
+        tr.appendChild(crearElement('td', factura.baseI.toString()));
+        tr.appendChild(crearElement('td', factura.iva.toString()));
+        tr.appendChild(crearElement('td', factura.total.toString()));
+        tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
+        tbody.appendChild(tr);
+        $(tr).attr('data-factura-id', factures.length - 1);
+        agregarAccionesA(tr); 
+    }
+}
+
+function agregarAccionesA(tr) {
     let tdAccions = document.createElement('td');
     let btnDescarregar = crearElement('button', '', {class: 'impresora'});
     let imgDescarregar = crearElement('img', '', {src: '/assets/impresora.png', alt: ''});
@@ -97,9 +141,9 @@ function actualitzarTaula() {
     tdAccions.appendChild(btnCesta);
     tr.appendChild(tdAccions);
 
-    tbody.appendChild(tr);
-    tr.setAttribute('data-factura-id', `${factures.length - 1}`);
+    tr.appendChild(tdAccions);
 }
+
 document.getElementById("files").addEventListener("change", handleFileSelect);
 function handleFileSelect(event) {
     let files = event.target.files;
