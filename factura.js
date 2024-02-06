@@ -1,6 +1,6 @@
 export class Factura{
     static num = 0; 
-    data; nif; client; telefon; email; subtotal; dte; baseI; iva; total; pagament; articles=[];
+    data; nif; client; telefon; email; subtotal; dte; baseI; iva; total; pagament;
 
     constructor(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament) {
         this.num = Factura.num++;
@@ -15,6 +15,7 @@ export class Factura{
         this.iva = iva;
         this.total = total;
         this.pagament = pagament;
+        this.articles = [];
     }
 
     static guardarFactura(factura) {
