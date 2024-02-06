@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
        
         let id = tbody.children.length + 1;
         let tr = document.createElement('tr');
-        tr.appendChild(crearElement('td', id.toString())); // Codi
+        tr.appendChild(crearElement('td', id.toString())); 
         tr.appendChild(crearElement('td', '', {'contenteditable': 'true'})); 
         tr.appendChild(crearElement('td', '', {'contenteditable': 'true'})); 
         tr.appendChild(crearElement('td', '', {'contenteditable': 'true', 'class': 'preu'})); 
@@ -257,7 +257,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     document.getElementById('tancarEdicio').addEventListener('click', function() {
+    
         calcularTotal();
+        document.querySelectorAll('#taulaArticles tbody tr').forEach(tr => {
+            let codi = tr.children[0].textContent;
+            let article = tr.children[1].textContent;
+            let unitats = tr.children[2].textContent;
+            let preu = tr.children[3].textContent;
+            Article.afegirArticle(new Article(codi, article, unitats, preu));     
+            Factura.afegirArticle(new Article(codi, article, unitats, preu));   
+            console.log(Article.obtenirArticles());
+            console.log(Factura.obtenirArticles());
+        });
+        $('#editarArticles').hide();
     });
 });
 function printDocument(){

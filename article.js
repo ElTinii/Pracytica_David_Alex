@@ -7,6 +7,9 @@ export class Article {
         this.unitats = unitats;
         this.preu = preu;
     }
+    static afegirArticle(article) {
+        this.articles.push(article);
+    }
 }
 
 export default Article;
