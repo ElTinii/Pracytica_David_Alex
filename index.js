@@ -4,7 +4,7 @@ import "https://code.jquery.com/jquery-3.6.3.js";
 function init() {
     localStorage.clear();
 }
-
+let factures = [];
 
 $(document).ready(init);
 
@@ -59,8 +59,8 @@ $(document).ready(function() {
 
             localStorage.setItem('factures', JSON.stringify(factures));
         } else {
-            let factura = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
-            Factura.guardarFactura(factura);
+            factures = new Factura(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament);
+            Factura.guardarFactura(factures);
         }
     
         actualitzarTaula();
@@ -224,12 +224,27 @@ document.addEventListener('DOMContentLoaded', function() {
         tr.appendChild(crearElement('td', '', {'contenteditable': 'true', 'class': 'preu'})); 
         tr.appendChild(crearElement('td', '', {'class': 'subtotal'})); 
         let tdAcc = document.createElement('td'); 
+
         let eliminarBtn = document.createElement('button');
         eliminarBtn.textContent = 'Eliminar';
         eliminarBtn.onclick = function() { tr.remove(); calcularTotal(); };
         tdAcc.appendChild(eliminarBtn);
-        tr.appendChild(tdAcc);
 
+        let moureAmunt = document.createElement('button');
+        moureAmunt.innerHTML = '&#x25B2;'; 
+        moureAmunt.onclick = function() { 
+            if (tr.previousElementSibling) tr.parentNode.insertBefore(tr, tr.previousElementSibling); 
+        };
+        tdAcc.appendChild(moureAmunt);
+
+        let moureAball = document.createElement('button');
+        moureAball.innerHTML = '&#x25BC;'; 
+        moureAball.onclick = function() { 
+            if (tr.nextElementSibling) tr.parentNode.insertBefore(tr.nextElementSibling, tr); 
+        };
+        tdAcc.appendChild(moureAball);
+
+        tr.appendChild(tdAcc);
         tbody.appendChild(tr);
     });
 
@@ -257,21 +272,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     document.getElementById('tancarEdicio').addEventListener('click', function() {
-    
+        let articles = [];
         calcularTotal();
         document.querySelectorAll('#taulaArticles tbody tr').forEach(tr => {
             let codi = tr.children[0].textContent;
             let article = tr.children[1].textContent;
             let unitats = tr.children[2].textContent;
             let preu = tr.children[3].textContent;
-            Article.afegirArticle(new Article(codi, article, unitats, preu));     
-            Factura.afegirArticle(new Article(codi, article, unitats, preu));   
-            console.log(Article.obtenirArticles());
-            console.log(Factura.obtenirArticles());
+            let subtotal = tr.children[4].textContent;
+            articles.push(new Article(codi, article, unitats, preu, subtotal));
         });
         $('#editarArticles').hide();
     });
 });
+
+
+
+
 
 function printDocument(){
     

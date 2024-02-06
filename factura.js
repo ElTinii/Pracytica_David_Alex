@@ -1,6 +1,6 @@
 export class Factura{
     static num = 0; 
-    data; nif; client; telefon; email; subtotal; dte; baseI; iva; total; pagament;
+    data; nif; client; telefon; email; subtotal; dte; baseI; iva; total; pagament; articles = [];
 
     constructor(data, nif, client, telefon, email, subtotal, dte, baseI, iva, total, pagament) {
         this.num = Factura.num++;
@@ -42,11 +42,25 @@ export class Factura{
             alert("Error al descarregar el fitxer")
         }
     }   
-    static afegirArticle(article) {
-        this.articles.push(article);
-    }
     static obtenirArticles() {
         return this.articles;
     }
+
+    static agregarArticulo(articulos) {
+        articulos.forEach(articulo => this.articles.push(articulo));
+        this.calcularTotales();
+    }
+    calcularTotales() {
+        this.subtotal = this.articles.reduce((acc, articulo) => acc + (articulo.unitats * articulo.preu), 0);
+        this.baseI = calcularBaseImponible(this.subtotal, this.dte); 
+        this.total = calcularTotal(this.baseI, this.iva);
+    }
+}
+
+function calcularBaseImponible(subtotal, dte) {
+    return subtotal - (subtotal * dte / 100);
+}
+function calcularTotal(baseI, iva) {
+    return baseI + (baseI * iva / 100);
 }
 export default Factura;
