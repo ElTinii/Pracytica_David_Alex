@@ -189,8 +189,7 @@ function eliminarFila() {
 function mostrarArticles() {
     let facturaId = $(this).closest('tr').data('factura-id'); 
     let factures = Factura.obtenirFactures();
-    let factura = factures.find(f => f.id === facturaId);
-
+    let factura = factures[facturaId];
     if (factura && factura.articles) {
         $('#taulaArticles tbody').empty();
         factura.articles.forEach(article => {
