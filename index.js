@@ -136,19 +136,6 @@ function eliminarFila() {
 
 function mostrarArticles(){
     $('#editarArticles').show();
-    let afg = document.getElementById('afegirArticle');
-    let tbody = document.getElementById('taulaArticles'); 
-    afg.addEventListener('click', function() {
-        let tr = document.createElement('tr');
-        tr.appendChild(crearElement('td', `${tbody.children.length + 1}`));
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
-        tbody.appendChild(tr);
-    });
-
 }
 function editarfactura() {
     let facturaId = this.closest('tr').getAttribute('data-factura-id');
@@ -169,3 +156,15 @@ function editarfactura() {
     $('#novaFactura').show();
     eliminarFila();
 }
+let afg = document.getElementById('afegirArticle');
+    let tbody = document.getElementById('taulaArticles'); 
+    afg.addEventListener('click', function() {
+        let tr = document.createElement('tr');
+        tr.appendChild(crearElement('td', `${tbody.children.length + 1}`));
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
+        tbody.appendChild(tr);
+    });
