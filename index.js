@@ -186,7 +186,23 @@ function eliminarFila() {
     localStorage.setItem('factures', JSON.stringify(factures));
 }
 
-function mostrarArticles(){
+function mostrarArticles() {
+    let facturaId = $(this).closest('tr').data('factura-id'); 
+    let factures = Factura.obtenirFactures();
+    let factura = factures.find(f => f.id === facturaId);
+
+    if (factura && factura.articles) {
+        $('#taulaArticles tbody').empty();
+        factura.articles.forEach(article => {
+            let tr = $('<tr></tr>');
+            tr.append($('<td></td>').text(article.codi));
+            tr.append($('<td></td>').text(article.article));
+            tr.append($('<td></td>').text(article.uni));
+            tr.append($('<td></td>').text(article.preu));
+            tr.append($('<td></td>').text(article.subtotal));
+            $('#taulaArticles tbody').append(tr);
+        });
+    }
     $('#editarArticles').show();
 }
 function editarfactura() {
@@ -273,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('tancarEdicio').addEventListener('click', function() {
         let articles = [];
+        let facturaId = $('#formulari').attr('data-editing-id');
         calcularTotal();
         document.querySelectorAll('#taulaArticles tbody tr').forEach(tr => {
             let codi = tr.children[0].textContent;
@@ -281,9 +298,19 @@ document.addEventListener('DOMContentLoaded', function() {
             let preu = tr.children[3].textContent;
             let subtotal = tr.children[4].textContent;
             articles.push(new Article(codi, article, unitats, preu, subtotal));
+            actualitzarDadesTaula(facturaId, articles);
         });
         $('#editarArticles').hide();
     });
+    function actualitzarDadesTaula(facturaId, nuevosArticulos) {
+        let factures = Factura.obtenirFactures();
+        let factura = factures.find(f => f.id === facturaId);
+        if (factura) {
+            factura.articles = nuevosArticulos;
+            Factura.guardarFactura(factures); 
+            localStorage.setItem('factures', JSON.stringify(factures));
+        }
+    }
 });
 
 
