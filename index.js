@@ -110,11 +110,11 @@ function actualitzarTaula() {
         tr.appendChild(crearElement('td', factura.pagament ? 'Sí' : 'No'));
         tbody.appendChild(tr);
         $(tr).attr('data-factura-id', factures.length - 1);
-        agregarAccionesA(tr); 
+        agregarAccions(tr); 
     }
 }
 
-function agregarAccionesA(tr) {
+function agregarAccions(tr) {
     let tdAccions = document.createElement('td');
     let btnDescarregar = crearElement('button', '', {class: 'impresora'});
     let imgDescarregar = crearElement('img', '', {src: '/assets/impresora.png', alt: ''});
