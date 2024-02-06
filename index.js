@@ -1,6 +1,7 @@
 import Factura from './factura.js';
 import Article from './article.js';
 import "https://code.jquery.com/jquery-3.6.3.js";
+//Fet per :  David Buesa i Alex Vazquez
 function init() {
     localStorage.clear();
 }
