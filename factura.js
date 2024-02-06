@@ -28,6 +28,7 @@ export class Factura{
         return facturesGuardades ? JSON.parse(facturesGuardades) : [];
     }
     static descarregarJson() {
+        try{
         const factures = Factura.obtenirFactures(); 
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(factures));
         const a = document.createElement('a');
@@ -36,6 +37,9 @@ export class Factura{
         document.body.appendChild(a); 
         a.click();
         a.remove();
+        }catch(e){
+            alert("Error al descarregar el fitxer")
+        }
     }   
     static afegirArticle(article) {
         this.articles.push(article);

@@ -145,9 +145,10 @@ function agregarAccions(tr) {
     tr.appendChild(tdAccions);
 }
 
-document.getElementById("files").addEventListener("change", handleFileSelect);
-function handleFileSelect(event) {
-    let files = event.target.files;
+document.getElementById("files").addEventListener("change", recuperarFitxer);
+function recuperarFitxer(event) {
+    try{
+   let files = event.target.files;
     let f = files[0];
     let reader = new FileReader();
     reader.onload = (function(arxiu) {
@@ -160,6 +161,10 @@ function handleFileSelect(event) {
         };
     })(f);
     reader.readAsText(f);
+    }catch(e){
+        alert("Error al recuperar el fitxer")
+    }
+ 
 }
 }); 
 
