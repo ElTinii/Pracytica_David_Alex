@@ -17,6 +17,7 @@ $(document).ready(function() {
 
     $('#facutra').click(function() {
         $('#novaFactura').show();
+        document.getElementById('data').focus();
     });
 
     $('#recuperar').click(function() {
@@ -210,7 +211,7 @@ let afg = document.getElementById('afegirArticle');
     let tbody = document.getElementById('taulaArticles'); 
     afg.addEventListener('click', function() {
         let tr = document.createElement('tr');
-        tr.appendChild(crearElement('td', `${tbody.children.length + 1}`));
+        tr.appendChild(crearElement('td', `${tbody.children.length}`));
         tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
         tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
         tr.appendChild(crearElement('td')).setAttribute("contenteditable","true");
