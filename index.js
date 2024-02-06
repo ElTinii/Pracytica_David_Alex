@@ -2,6 +2,7 @@ import Factura from './factura.js';
 import Article from './article.js';
 import "https://code.jquery.com/jquery-3.6.3.js";
 function init() {
+    localStorage.clear();
 }
 
 
