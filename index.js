@@ -331,15 +331,15 @@ function printDocument(){
 
     div.appendChild(crearElement('h1', 'Factura'));
     div.appendChild(crearElement('label','Data Factura: '));
-    div.appendChild(crearElement('label', $('#data').val(factura.data)));
+    div.appendChild(crearElement('label', factura.data));
     div.appendChild(crearElement('label','Núm. Factura: '));
     div.appendChild(crearElement('label', facturaId));
     div.appendChild(crearElement('br'));
     div.appendChild(crearElement('br'));
     div.appendChild(crearElement('label','NIF: '));
-    div.appendChild(crearElement('label', $('#nif').val(factura.nif)));
+    div.appendChild(crearElement('label', factura.nif));
     div.appendChild(crearElement('label','Nom: '));
-    div.appendChild(crearElement('label', $('#nom').val(factura.client)));
+    div.appendChild(crearElement('label', factura.client));
     div.appendChild(crearElement('br'));
     div.appendChild(crearElement('br'));
     div.appendChild(crearElement('tabel'))
@@ -349,6 +349,14 @@ function printDocument(){
     div.appendChild(crearElement('th', 'Uni.'));
     div.appendChild(crearElement('th', 'Preu'));
     div.appendChild(crearElement('th', 'Subtotal'));
-    
+    for (let i = 0; i < factura.articles.length; i++) {
+        let article = factura.articles[i];
+        div.appendChild(crearElement('tr'));
+        div.appendChild(crearElement('td', article.codi));
+        div.appendChild(crearElement('td', article.article));
+        div.appendChild(crearElement('td', article.unitats));
+        div.appendChild(crearElement('td', article.preu));
+        div.appendChild(crearElement('td', article.subtotal));
+    }
     window.print();
 }
